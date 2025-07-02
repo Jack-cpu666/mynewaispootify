@@ -4,9 +4,15 @@ Render.com Server - Remote Desktop Control Relay
 Optimized for low latency and high performance
 """
 
-import eventlet
-eventlet.monkey_patch()
+# REPLACE eventlet with gevent
+from gevent import monkey
+monkey.patch_all()
 
+# Remove these lines:
+# import eventlet
+# eventlet.monkey_patch()
+
+# Continue with rest of your imports...
 import os
 import time
 import json
