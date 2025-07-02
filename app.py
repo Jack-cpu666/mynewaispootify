@@ -31,7 +31,7 @@ browsers = {}  # browser_socket_id -> {client_id, authenticated}
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'render_remote_desktop_2024')
 socketio = SocketIO(app, 
-                   async_mode='gevent', 
+                   async_mode='threading', 
                    cors_allowed_origins="*",
                    ping_timeout=60,
                    ping_interval=25,
@@ -434,4 +434,4 @@ def relay_screen_data(data):
 
 if __name__ == '__main__':
     logger.info(f"Starting server on port {PORT}")
-    socketio.run(app, host='0.0.0.0', port=PORT, debug=False)
+    socketio.run(app, host='0.0.0.0', port=PORT, debug=False, allow_unsafe_werkzeug=True)
