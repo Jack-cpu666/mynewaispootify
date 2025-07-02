@@ -1,1 +1,19 @@
-
+services:
+  - type: web
+    name: remote-desktop-server
+    env: python
+    plan: professional  # Recommended for better performance
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: PYTHONUNBUFFERED
+        value: 1
+    healthCheckPath: /
+    autoDeploy: true
+    # For high-performance plan ($500), you can increase resources
+    disk:
+      name: remote-desktop-disk
+      mountPath: /data
+      sizeGB: 1
